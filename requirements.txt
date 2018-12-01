@@ -1,4 +1,5 @@
 aiohttp==3.4.4
 aiomultiprocess==0.4.0
 asyncio==3.4.3
-requests==2.19.1
+requests==2.20.0
+lxml==4.2.5
