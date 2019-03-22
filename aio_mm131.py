@@ -1,4 +1,4 @@
-from set_mm131_header import set_header,ref_set
+from lib.utils import set_header
 from aiomultiprocess import Pool
 import aiohttp,asyncio,time,os
 
@@ -28,7 +28,7 @@ class Aio_mm(object):
         
 
     async def makeurl(self,sta,end,limit): 
-        urls=['http://img1.mm131.me/pic/'+str(i)+'/'+str(j)+'.jpg' for i in range(sta,end) for j in range(1,limit)]
+        urls=['http://img1.mm131.me/pic/'+str(i)+'/'+str(j)+'.jpg' for i in range(sta,end+1) for j in range(1,limit)]
         return await Pool().map(self.async_get,urls)
 
     def go_start(self,begin,end):
@@ -37,10 +37,9 @@ class Aio_mm(object):
         loop.run_until_complete(task)
 
 if __name__ == '__main__':
-    # sta,end=map(int,input('输入mm起始编号和结束编号 以空格隔开:').split(' '))
+    sta,end=map(int,input('输入mm起始编号和结束编号 以空格隔开:').split(' '))
     app=Aio_mm()
-
     start_time = time.time()
-    app.go_start(2500,4400)
+    app.go_start(sta,end)
     end_time = time.time()
     print('爬取任务已完成,消耗时间:', end_time - start_time)
